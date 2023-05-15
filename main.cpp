@@ -2,65 +2,6 @@
 #include <string>
 #include <cstring>
 #include <vector>
-#include "Build.cpp"
-
-class ListStudent
-{
-private:
-    NodeStudent *head;
-
-public:
-    ListStudent()
-    {
-        head = nullptr;
-    }
-    // thêm vào đầu danh sách 1 node student
-    void addToHead(Student *dataOfStudent)
-    {
-        NodeStudent *newNode = new NodeStudent(dataOfStudent);
-        if (head == nullptr)
-        {
-            head = newNode;
-            return;
-        }
-        newNode->next = head;
-        head = newNode;
-    }
-    void addToTail(Student *dataOfStudent)
-    {
-        NodeStudent *newNode = new NodeStudent(dataOfStudent);
-        if (head == nullptr)
-        {
-            head = newNode;
-            return;
-        }
-        NodeStudent *temp = head;
-        while (temp->next != nullptr)
-        {
-            temp = temp->next;
-        }
-        temp->next = newNode;
-        newNode->next = nullptr;
-    }
-    // tìm học sinh theo tên theo từng Node
-    NodeStudent *findStudent(std::string name)
-    {
-        NodeStudent *temp = head;
-        while (temp != nullptr)
-        {
-            if (temp->dataOfStudent->GetFullName() == name)
-            {
-                return temp;
-            }
-        }
-        return nullptr;
-    }
-};
-
-class ListSubject
-{
-
-};
 
 class HashTable
 {
