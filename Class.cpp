@@ -258,6 +258,26 @@ public:
 
     std::string *GetListOfFaculty() const { return listClassOfFaculty; }
     void SetListOfFaculty(std::string *listClassOfFaculty) { this->listClassOfFaculty = listClassOfFaculty; }
+
+    void putInformationFaculty()
+    {
+        std::cout << "Enter the name of the faculty: ";
+        std::getline(std::cin, nameFaculty);
+
+        std::cout << "Enter the ID of the faculty: ";
+        std::getline(std::cin, idFaculty);
+
+        std::cout << "Enter the number of classes in the faculty: ";
+        std::cin >> numClasses;
+        std::cin.ignore(); // Ignore the newline character
+
+        listClassOfFaculty = new std::string[numClasses];
+        for (int i = 0; i < numClasses; ++i)
+        {
+            std::cout << "Enter the name of class " << i + 1 << ": ";
+            std::getline(std::cin, listClassOfFaculty[i]);
+        }
+    }
 };
 
 // HỌC KỲ
@@ -314,5 +334,25 @@ public:
     void SetListClassInTerm(Class *listClassInTerm)
     {
         this->listClassInTerm = listClassInTerm;
+    }
+
+    void putInformationTerm()
+    {
+        std::cout << "Enter the ID of the term: ";
+        std::getline(std::cin, idTerm);
+
+        std::cout << "Enter the name of the term: ";
+        std::getline(std::cin, nameTerm);
+
+        std::cout << "Enter the number of classes in the term: ";
+        std::cin >> numClasses;
+        std::cin.ignore(); // Ignore the newline character
+
+        listClassInTerm = new std::string[numClasses];
+        for (int i = 0; i < numClasses; ++i)
+        {
+            std::cout << "Enter the name of class " << i + 1 << ": ";
+            std::getline(std::cin, listClassInTerm[i]);
+        }
     }
 };
