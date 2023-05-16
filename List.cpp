@@ -170,6 +170,7 @@ public:
         }
         temp->next = newNode;
     }
+    // tìm kiếm môn học
     NodeSubject *findSubject(std::string nameSubject)
     {
         NodeSubject *temp = head;
@@ -183,6 +184,7 @@ public:
         }
         return nullptr;
     }
+    // sửa thông tin một lớp môn học
     void editSubject(std::string nameSubject, Subject *newDataOfSubject)
     {
         NodeSubject *newNodeSubject = findSubject(nameSubject);
@@ -193,3 +195,128 @@ public:
     }
 };
 
+class ListClass
+{
+private:
+    NodeClass *head;
+
+public:
+    ListClass()
+    {
+        head = nullptr;
+    }
+
+    void addToHead(Class *dataOfClass)
+    {
+        NodeClass *newNode = new NodeClass(dataOfClass);
+        if (head == nullptr)
+        {
+            head = newNode;
+            return;
+        }
+        newNode->next = head;
+        head = newNode;
+    }
+
+    void addToTail(Class *dataOfClass)
+    {
+        NodeClass *newNode = new NodeClass(dataOfClass);
+        if (head == nullptr)
+        {
+            addToHead(dataOfClass);
+            return;
+        }
+        NodeClass *temp = head;
+        while (temp != nullptr)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+    // tìm kiếm môn học
+    NodeClass *findClass(std::string nameClass)
+    {
+        NodeClass *temp = head;
+        while (temp != nullptr)
+        {
+            if (temp->dataOfClass->GetIdClass() == nameClass)
+            {
+                return temp;
+            }
+            temp = temp->next;
+        }
+        return nullptr;
+    }
+    // sửa thông tin một lớp môn học
+    void editClass(std::string nameClass, Class *newDataOfClass)
+    {
+        NodeClass *newNodeClass = findClass(nameClass);
+        if (newNodeClass != nullptr)
+        {
+            newNodeClass->dataOfClass = newDataOfClass;
+        }
+    }
+};
+
+class ListFaculty
+{
+private:
+    NodeFaculty *head;
+
+public:
+    ListFaculty()
+    {
+        head = nullptr;
+    }
+
+    void addToHead(Faculty *dataOfFaculty)
+    {
+        NodeFaculty *newNode = new NodeFaculty(dataOfFaculty);
+        if (head == nullptr)
+        {
+            head = newNode;
+            return;
+        }
+        newNode->next = head;
+        head = newNode;
+    }
+
+    void addToTail(Faculty *dataOfFaculty)
+    {
+        NodeFaculty *newNode = new NodeFaculty(dataOfFaculty);
+        if (head == nullptr)
+        {
+            addToHead(dataOfFaculty);
+            return;
+        }
+        NodeFaculty *temp = head;
+        while (temp != nullptr)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+    // tìm kiếm môn học
+    NodeFaculty *findFaculty(std::string nameFaculty)
+    {
+        NodeFaculty *temp = head;
+        while (temp != nullptr)
+        {
+            if (temp->dataOfFaculty->GetIdFaculty() == nameFaculty)
+            {
+                return temp;
+            }
+            temp = temp->next;
+        }
+        return nullptr;
+    }
+    // sửa thông tin một lớp môn học
+    void editFaculty(std::string nameFaculty, Faculty *newDataOfFaculty)
+    {
+        NodeFaculty *newNodeFaculty = findFaculty(nameFaculty);
+        if (newNodeFaculty != nullptr)
+        {
+            newNodeFaculty->dataOfFaculty = newDataOfFaculty;
+        }
+    }
+};

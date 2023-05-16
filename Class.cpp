@@ -23,7 +23,22 @@ public:
         this->address = address;
         this->email = email;
         this->phoneNumber = phoneNumber;
-        this->registeredSubjects = registeredSubjects;
+
+        // Calculate the size of the registeredSubjects array
+        int numSubjects = registeredSubjects->length();
+
+        // Allocate memory for the registeredSubjects array
+        this->registeredSubjects = new std::string[numSubjects];
+
+        // Copy the subjects to the registeredSubjects array
+        for (int i = 0; i < numSubjects; i++)
+        {
+            this->registeredSubjects[i] = registeredSubjects[i];
+        }
+    }
+    ~Student()
+    {
+        delete [] registeredSubjects;
     }
     std::string GetFullName() const { return this->fullName; }
     void SetFullName(std::string fullName) { this->fullName = fullName; }
@@ -177,4 +192,3 @@ public:
         this->listClassInTerm = listClassInTerm;
     }
 };
-
