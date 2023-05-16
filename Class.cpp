@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-#include <vector>
 // HỌC SINH
 class Student
 {
@@ -38,7 +37,7 @@ public:
     }
     ~Student()
     {
-        delete [] registeredSubjects;
+        delete[] registeredSubjects;
     }
     std::string GetFullName() const { return this->fullName; }
     void SetFullName(std::string fullName) { this->fullName = fullName; }
@@ -60,6 +59,41 @@ public:
 
     std::string *GetRegisteredSubjects() const { return this->registeredSubjects; }
     void SetRegisteredSubjects(std::string *registeredSubjects) { this->registeredSubjects = registeredSubjects; }
+
+    // nhập thông tin
+    void putInformation()
+    {
+        std::cout << "Full Name: ";
+        std::getline(std::cin, fullName);
+
+        std::cout << "Student ID: ";
+        std::getline(std::cin, ID);
+
+        std::cout << "Date of Birth: ";
+        std::getline(std::cin, dateOfBirth);
+
+        std::cout << "Address: ";
+        std::getline(std::cin, address);
+
+        std::cout << "Email: ";
+        std::getline(std::cin, email);
+
+        std::cout << "Phone Number: ";
+        std::getline(std::cin, phoneNumber);
+
+        // Example of how to input an array of registered subjects
+        int numberOfSubjects;
+        std::cout << "Number of Registered Subjects: ";
+        std::cin >> numberOfSubjects;
+        std::cin.ignore(); // Discard the '\n' character remaining after inputting the number of subjects
+
+        registeredSubjects = new std::string[numberOfSubjects];
+        for (int i = 0; i < numberOfSubjects; i++)
+        {
+            std::cout << "Subject " << i + 1 << ": ";
+            std::getline(std::cin, registeredSubjects[i]);
+        }
+    }
 };
 // MÔN HỌC
 class Subject
@@ -68,16 +102,20 @@ private:
     std::string nameSubject;           // tên môn học
     std::string IdSubject;             // mã môn học
     int numberOfCredits;               // số tín chỉ
-    Student *registeredStudentSubject; // sinh viên đã đăng ký
+    std::string *registeredStudentSubject; // sinh viên đã đăng ký
 
 public:
     // constructor
-    Subject(std::string nameSubject, std::string IdSubject, int numberOfCredis, Student *registeredStudentSubject)
+    Subject(std::string nameSubject, std::string IdSubject, int numberOfCredis, std::string *registeredStudentSubject)
     {
         this->nameSubject = nameSubject;
         this->IdSubject = IdSubject;
         this->numberOfCredits = numberOfCredis;
-        this->registeredStudentSubject = registeredStudentSubject;
+        int lenghtRegisteredStudentSubject = registeredStudentSubject->length();
+        for (int i = 0; i < lenghtRegisteredStudentSubject; i++)
+        {
+            this->registeredStudentSubject[i] = registeredStudentSubject[i];
+        }
     }
     std::string GetNameSubject() const { return this->nameSubject; }
     void SetNameSubject(std::string nameSubject) { this->nameSubject = nameSubject; }
@@ -90,6 +128,8 @@ public:
 
     Student *GetRegisteredStudentSubject() const { return this->registeredStudentSubject; }
     void SetRegisteredStudentSubjects(Student *registeredStudentSubjects) { this->registeredStudentSubject = registeredStudentSubjects; }
+
+    
 };
 
 // LỚP
