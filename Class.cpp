@@ -266,17 +266,19 @@ public:
 
         std::cout << "Enter the ID of the faculty: ";
         std::getline(std::cin, idFaculty);
-
+        int numberListClassOfFaculty;
         std::cout << "Enter the number of classes in the faculty: ";
-        std::cin >> numClasses;
+        std::cin >> numberListClassOfFaculty;
         std::cin.ignore(); // Ignore the newline character
 
-        listClassOfFaculty = new std::string[numClasses];
-        for (int i = 0; i < numClasses; ++i)
+        listClassOfFaculty = new std::string[numberListClassOfFaculty];
+        for (int i = 0; i < numberListClassOfFaculty; ++i)
         {
             std::cout << "Enter the name of class " << i + 1 << ": ";
             std::getline(std::cin, listClassOfFaculty[i]);
         }
+
+        delete[] listClassOfFaculty;
     }
 };
 
@@ -326,12 +328,12 @@ public:
         this->nameTerm = nameTerm;
     }
 
-    Class *GetListClassInTerm() const
+    std::string *GetListClassInTerm() const
     {
         return listClassInTerm;
     }
 
-    void SetListClassInTerm(Class *listClassInTerm)
+    void SetListClassInTerm(std::string *listClassInTerm)
     {
         this->listClassInTerm = listClassInTerm;
     }
@@ -343,13 +345,13 @@ public:
 
         std::cout << "Enter the name of the term: ";
         std::getline(std::cin, nameTerm);
-
+        int numberListClassInTerm;
         std::cout << "Enter the number of classes in the term: ";
-        std::cin >> numClasses;
+        std::cin >> numberListClassInTerm;
         std::cin.ignore(); // Ignore the newline character
 
-        listClassInTerm = new std::string[numClasses];
-        for (int i = 0; i < numClasses; ++i)
+        listClassInTerm = new std::string[numberListClassInTerm];
+        for (int i = 0; i < numberListClassInTerm; i++)
         {
             std::cout << "Enter the name of class " << i + 1 << ": ";
             std::getline(std::cin, listClassInTerm[i]);

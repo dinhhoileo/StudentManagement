@@ -320,3 +320,66 @@ public:
         }
     }
 };
+
+class ListTerm
+{
+private:
+    NodeTerm *head;
+
+public:
+    ListTerm()
+    {
+        head = nullptr;
+    }
+
+    void addToHead(Term *dataOfTerm)
+    {
+        NodeTerm *newNode = new NodeTerm(dataOfTerm);
+        if (head == nullptr)
+        {
+            head = newNode;
+            return;
+        }
+        newNode->next = head;
+        head = newNode;
+    }
+
+    void addToTail(Term *dataOfTerm)
+    {
+        NodeTerm *newNode = new NodeTerm(dataOfTerm);
+        if (head == nullptr)
+        {
+            addToHead(dataOfTerm);
+            return;
+        }
+        NodeTerm *temp = head;
+        while (temp != nullptr)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+    // tìm kiếm môn học
+    NodeTerm *findTerm(std::string nameTerm)
+    {
+        NodeTerm *temp = head;
+        while (temp != nullptr)
+        {
+            if (temp->dataOfTerm->GetIdTerm() == nameTerm)
+            {
+                return temp;
+            }
+            temp = temp->next;
+        }
+        return nullptr;
+    }
+    // sửa thông tin một lớp môn học
+    void editTerm(std::string nameTerm, Term *newDataOfTerm)
+    {
+        NodeTerm *newNodeTerm = findTerm(nameTerm);
+        if (newNodeTerm != nullptr)
+        {
+            newNodeTerm->dataOfTerm = newDataOfTerm;
+        }
+    }
+};
