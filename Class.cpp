@@ -2,18 +2,25 @@
 #include <string>
 #include <cstring>
 // HỌC SINH
+
 class Student
 {
 private:
-    std::string fullName;            // họ và tên
-    std::string ID;                  // mã số sinh viên
-    std::string dateOfBirth;         // ngày sinh
-    std::string address;             // địa chỉ
-    std::string email;               // thư điện tử email
-    std::string phoneNumber;         // số điện thoại
-    std::string *registeredSubjects; // danh sách môn học đã đăng ký
+    std::string fullName;
+    std::string ID;
+    std::string dateOfBirth;
+    std::string address;
+    std::string email;
+    std::string phoneNumber;
+    std::string *registeredSubjects;
+
 public:
     // constructor
+    Student()
+    {
+        registeredSubjects = nullptr;
+    }
+
     Student(std::string fullName, std::string ID, std::string dateOfBirth, std::string address, std::string email, std::string phoneNumber, std::string *registeredSubjects)
     {
         this->fullName = fullName;
@@ -23,44 +30,45 @@ public:
         this->email = email;
         this->phoneNumber = phoneNumber;
 
-        // Calculate the size of the registeredSubjects array
-        int numSubjects = registeredSubjects->length();
+        int numSubjects = 0;
+        while (!registeredSubjects[numSubjects].empty())
+        {
+            numSubjects++;
+        }
 
-        // Allocate memory for the registeredSubjects array
         this->registeredSubjects = new std::string[numSubjects];
-
-        // Copy the subjects to the registeredSubjects array
         for (int i = 0; i < numSubjects; i++)
         {
             this->registeredSubjects[i] = registeredSubjects[i];
         }
     }
+
     ~Student()
     {
         delete[] registeredSubjects;
     }
-    std::string GetFullName() const { return this->fullName; }
-    void SetFullName(std::string fullName) { this->fullName = fullName; }
 
-    std::string GetID() const { return this->ID; }
-    void SetID(std::string ID) { this->ID = ID; }
+    std::string GetFullName() const { return fullName; }
+    void SetFullName(const std::string &fullName) { this->fullName = fullName; }
 
-    std::string GetDateOfBirth() const { return this->dateOfBirth; }
-    void SetDateOfBirth(std::string dateOfBirth) { this->dateOfBirth = dateOfBirth; }
+    std::string GetID() const { return ID; }
+    void SetID(const std::string &ID) { this->ID = ID; }
 
-    std::string GetAddress() const { return this->address; }
-    void SetAddress(std::string address) { this->address = address; }
+    std::string GetDateOfBirth() const { return dateOfBirth; }
+    void SetDateOfBirth(const std::string &dateOfBirth) { this->dateOfBirth = dateOfBirth; }
 
-    std::string GetEmail() const { return this->email; }
-    void SetEmail(std::string email) { this->email = email; }
+    std::string GetAddress() const { return address; }
+    void SetAddress(const std::string &address) { this->address = address; }
 
-    std::string GetPhoneNumber() const { return this->phoneNumber; }
-    void SetPhoneNumber(std::string phoneNumber) { this->phoneNumber = phoneNumber; }
+    std::string GetEmail() const { return email; }
+    void SetEmail(const std::string &email) { this->email = email; }
 
-    std::string *GetRegisteredSubjects() const { return this->registeredSubjects; }
+    std::string GetPhoneNumber() const { return phoneNumber; }
+    void SetPhoneNumber(const std::string &phoneNumber) { this->phoneNumber = phoneNumber; }
+
+    std::string *GetRegisteredSubjects() const { return registeredSubjects; }
     void SetRegisteredSubjects(std::string *registeredSubjects) { this->registeredSubjects = registeredSubjects; }
 
-    // nhập thông tin
     void putInformationStudent()
     {
         std::cout << "Full Name: ";
@@ -88,7 +96,78 @@ public:
             std::getline(std::cin, registeredSubjects[i]);
         }
     }
+    void outputInformation() const
+    {
+        const int MAX_CHOICES = 7;
+        char selectedChoices[MAX_CHOICES];
+        int numSelectedChoices = 0;
+
+        while (true)
+        {
+            std::cout << "Choose information to display:" << std::endl;
+            std::cout << "1. Full Name" << std::endl;
+            std::cout << "2. Student ID" << std::endl;
+            std::cout << "3. Date of Birth" << std::endl;
+            std::cout << "4. Address" << std::endl;
+            std::cout << "5. Email" << std::endl;
+            std::cout << "6. Phone Number" << std::endl;
+            std::cout << "7. Registered Subjects" << std::endl;
+            std::cout << "Enter your choice (1-7) or 'y'/'Y' to exit: ";
+            char choice;
+            std::cin >> choice;
+
+            if (choice == 'y' || choice == 'Y')
+            {
+                break;
+            }
+
+            if (choice >= '1' && choice <= '7')
+            {
+                selectedChoices[numSelectedChoices] = choice;
+                numSelectedChoices++;
+            }
+            else
+            {
+                std::cout << "Invalid choice." << std::endl;
+            }
+        }
+
+        // Xuất thông tin cho các lựa chọn đã chọn
+        for (int i = 0; i < numSelectedChoices; i++)
+        {
+            char choice = selectedChoices[i];
+            switch (choice)
+            {
+            case '1':
+                std::cout << "Full Name: " << fullName << std::endl;
+                break;
+            case '2':
+                std::cout << "Student ID: " << ID << std::endl;
+                break;
+            case '3':
+                std::cout << "Date of Birth: " << dateOfBirth << std::endl;
+                break;
+            case '4':
+                std::cout << "Address: " << address << std::endl;
+                break;
+            case '5':
+                std::cout << "Email: " << email << std::endl;
+                break;
+            case '6':
+                std::cout << "Phone Number: " << phoneNumber << std::endl;
+                break;
+            case '7':
+                std::cout << "Registered Subjects:" << std::endl;
+                for (int j = 0; j < registeredSubjects->length(); j++)
+                {
+                    std::cout << "Subject " << j + 1 << ": " << registeredSubjects[j] << std::endl;
+                }
+                break;
+            }
+        }
+    }
 };
+
 // MÔN HỌC
 class Subject
 {
@@ -100,6 +179,10 @@ private:
 
 public:
     // constructor
+    Subject()
+    {
+        registeredStudentSubject = nullptr;
+    }
     Subject(std::string nameSubject, std::string IdSubject, int numberOfCredis, std::string *registeredStudentSubject)
     {
         this->nameSubject = nameSubject;
@@ -147,6 +230,67 @@ public:
             std::getline(std::cin, registeredStudentSubject[i]);
         }
     }
+    void outputInformation() const
+    {
+        const int MAX_CHOICE = 4;
+        char selectedChoices[MAX_CHOICE];
+        int numSelectedChoices = 0;
+
+        while (true)
+        {
+            std::cout << "Choose information to display:\n";
+            std::cout << "1. Name of Subject\n";
+            std::cout << "2. ID of Subject\n";
+            std::cout << "3. Number of Credits\n";
+            std::cout << "4. Registered Students\n";
+            std::cout << "Enter your choice (1-4), or 'y'/'Y' to exit: ";
+            char choice;
+            std::cin >> choice;
+            std::cin.ignore(); // Ignore the newline character
+
+            if (choice == 'y' || choice == 'Y')
+            {
+                break;
+                ;
+            }
+
+            if (choice >= '1' && choice <= '7')
+            {
+                selectedChoices[numSelectedChoices] = choice;
+                numSelectedChoices++;
+            }
+            else
+            {
+                std::cout << "Invalid choice." << std::endl;
+            }
+        }
+        for (int i = 0; i < numSelectedChoices; i++)
+        {
+            char choice = selectedChoices[i];
+            switch (choice)
+            {
+            case '1':
+                std::cout << "Name of Subject: " << nameSubject << std::endl;
+                break;
+            case '2':
+                std::cout << "ID of Subject: " << IdSubject << std::endl;
+                break;
+            case '3':
+                std::cout << "Number of Credits: " << numberOfCredits << std::endl;
+                break;
+            case '4':
+                std::cout << "Registered Students:" << std::endl;
+                for (int i = 0; i < registeredStudentSubject->length(); ++i)
+                {
+                    std::cout << "Student " << i + 1 << ": " << registeredStudentSubject[i] << std::endl;
+                }
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+                break;
+            }
+        }
+    }
 };
 
 // LỚP
@@ -159,6 +303,11 @@ private:
     std::string *subjectTaughtInClass; // danh sách môn học được dạy trong lớp
 
 public:
+    Class()
+    {
+        studentInClass = nullptr;
+        subjectTaughtInClass = nullptr;
+    }
     Class(std::string idClass, std::string nameClass, std::string *studentInClass, std::string *subjectTaughtInClass)
     {
         this->idClass = idClass;
@@ -225,6 +374,69 @@ public:
             std::getline(std::cin, subjectTaughtInClass[i]);
         }
     }
+    void outputInformation() const
+    {
+        const int MAX_CHOICE = 4;
+        int selectedChoice[MAX_CHOICE];
+        int numSelectedChoice = 0;
+        while (true)
+        {
+            std::cout << "Choose information to display:\n";
+            std::cout << "1. ID of Class\n";
+            std::cout << "2. Name of Class\n";
+            std::cout << "3. Students in Class\n";
+            std::cout << "4. Subjects Taught in Class\n";
+            std::cout << "Enter your choice (1-4), or 'y'/'Y' to exit: ";
+            char choice;
+            std::cin >> choice;
+            std::cin.ignore(); // Ignore the newline character
+
+            if (choice == 'y' || choice == 'Y')
+            {
+                break;
+            }
+
+            if (choice >= '1' && choice <= '4')
+            {
+                selectedChoice[numSelectedChoice] = choice;
+                numSelectedChoice++;
+            }
+            else
+            {
+                std::cout << "Invalid choice." << std::endl;
+            }
+        }
+        for (int i = 0; i < numSelectedChoice; i++)
+        {
+            char choice = selectedChoice[i];
+            switch (choice)
+            {
+            case '1':
+                std::cout << "ID of Class: " << idClass << std::endl;
+                break;
+            case '2':
+                std::cout << "Name of Class: " << nameClass << std::endl;
+                break;
+            case '3':
+                std::cout << "Students in Class:" << std::endl;
+                for (int i = 0; i < studentInClass->length(); ++i)
+                {
+                    std::cout << "Student " << i + 1 << ": " << studentInClass[i] << std::endl;
+                }
+                break;
+            case '4':
+                std::cout << "Subjects Taught in Class:" << std::endl;
+                for (int i = 0; i < subjectTaughtInClass->length(); ++i)
+                {
+                    std::cout << "Subject " << i + 1 << ": " << subjectTaughtInClass[i] << std::endl;
+                }
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+                break;
+            }
+        }
+    }
 };
 // KHOA
 class Faculty
@@ -279,6 +491,61 @@ public:
         }
 
         delete[] listClassOfFaculty;
+    }
+    void outputInformation() const
+    {
+        const int MAX_CHOICE = 3;
+        int selectedChoice[MAX_CHOICE];
+        int numSelectedChoice = 0;
+        while (true)
+        {
+            std::cout << "Choose information to display:\n";
+            std::cout << "1. Name of Faculty\n";
+            std::cout << "2. ID of Faculty\n";
+            std::cout << "3. List of Classes in Faculty\n";
+            std::cout << "Enter your choice (1-3), or 'y'/'Y' to exit: ";
+            char choice;
+            std::cin >> choice;
+            std::cin.ignore(); // Ignore the newline character
+
+            if (choice == 'y' || choice == 'Y')
+            {
+                break;
+            }
+
+            if (choice >= '1' && choice <= '3')
+            {
+                selectedChoice[numSelectedChoice] = choice;
+                numSelectedChoice++;
+            }
+            else
+            {
+                std::cout << "Invalid choice." << std::endl;
+            }
+        }
+        for (int i = 0; i < numSelectedChoice; i++)
+        {
+            char choice = selectedChoice[i];
+            switch (choice)
+            {
+            case '1':
+                std::cout << "Name of Faculty: " << nameFaculty << std::endl;
+                break;
+            case '2':
+                std::cout << "ID of Faculty: " << idFaculty << std::endl;
+                break;
+            case '3':
+                std::cout << "List of Classes in Faculty:" << std::endl;
+                for (int i = 0; i < listClassOfFaculty->length(); ++i)
+                {
+                    std::cout << "Class " << i + 1 << ": " << listClassOfFaculty[i] << std::endl;
+                }
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+                break;
+            }
+        }
     }
 };
 
@@ -355,6 +622,62 @@ public:
         {
             std::cout << "Enter the name of class " << i + 1 << ": ";
             std::getline(std::cin, listClassInTerm[i]);
+        }
+    }
+    void outputInformation() const
+    {
+        const int MAX_CHOICE = 3;
+        int selectedChoice[MAX_CHOICE];
+        int numSelectedChoice = 0;
+        while (true)
+        {
+            std::cout << "Choose information to display:\n";
+            std::cout << "1. ID of Term\n";
+            std::cout << "2. Name of Term\n";
+            std::cout << "3. List of Classes in Term\n";
+            std::cout << "Enter your choice (1-3), or 'y'/'Y' to exit: ";
+            char choice;
+            std::cin >> choice;
+            std::cin.ignore(); // Ignore the newline character
+
+            // base case
+            if (choice == 'y' || choice == 'Y')
+            {
+                break;
+            }
+
+            if (choice >= '1' && choice <= 3)
+            {
+                selectedChoice[numSelectedChoice] = choice;
+                numSelectedChoice++;
+            }
+            else
+            {
+                std::cout << "Invalid choice." << std::endl;
+            }
+        }
+        for (int i = 0; i < numSelectedChoice; i++)
+        {
+            char choice = selectedChoice[i];
+            switch (choice)
+            {
+            case '1':
+                std::cout << "ID of Term: " << idTerm << std::endl;
+                break;
+            case '2':
+                std::cout << "Name of Term: " << nameTerm << std::endl;
+                break;
+            case '3':
+                std::cout << "List of Classes in Term:" << std::endl;
+                for (int i = 0; i < listClassInTerm->length(); ++i)
+                {
+                    std::cout << "Class " << i + 1 << ": " << listClassInTerm[i] << std::endl;
+                }
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+                break;
+            }
         }
     }
 };
