@@ -124,6 +124,7 @@ public:
             {
                 return temp;
             }
+            temp = temp->next;
         }
         return nullptr;
     }
@@ -138,7 +139,12 @@ public:
     }
     void displayStudent()
     {
-        
+        NodeStudent *temp = head;
+        while (temp != nullptr)
+        {
+            temp->dataOfStudent->outputInformation();
+            temp = temp->next;
+        }
     }
 };
 // danh sách lưa trữ các môn học
@@ -201,6 +207,15 @@ public:
         if (newNodeSubject != nullptr)
         {
             newNodeSubject->dataOfSubject = newDataOfSubject;
+        }
+    }
+    void displaySubject()
+    {
+        NodeSubject *temp = head;
+        while (temp != nullptr)
+        {
+            temp->dataOfSubject->outputInformation();
+            temp = temp->next;
         }
     }
 };
@@ -266,6 +281,15 @@ public:
             newNodeClass->dataOfClass = newDataOfClass;
         }
     }
+    void displayClass()
+    {
+        NodeClass *temp = head;
+        while (temp != nullptr)
+        {
+            temp->dataOfClass->outputInformation();
+            temp = temp->next;
+        }
+    }
 };
 
 class ListFaculty
@@ -327,6 +351,15 @@ public:
         if (newNodeFaculty != nullptr)
         {
             newNodeFaculty->dataOfFaculty = newDataOfFaculty;
+        }
+    }
+    void displayFaculty()
+    {
+        NodeFaculty *temp = head;
+        while (temp != nullptr)
+        {
+            temp->dataOfFaculty->outputInformation();
+            temp = temp->next;
         }
     }
 };
@@ -392,4 +425,45 @@ public:
             newNodeTerm->dataOfTerm = newDataOfTerm;
         }
     }
+    void displayTerm()
+    {
+        NodeTerm *temp = head;
+        while (temp != nullptr)
+        {
+            temp->dataOfTerm->outputInformation();
+            temp = temp->next;
+        }
+    }
 };
+int main() {
+    // Một ví dụ sử dụng các chức năng trong lớp ListStudent
+    ListStudent studentList;
+    Student* student1 = new Student();
+    student1->putInformationStudent();
+    studentList.addToHead(student1);
+
+    Student* student2 = new Student();
+    student2->putInformationStudent();
+    studentList.addToTail(student2);
+
+    std::string searchName ;
+    std::cout<<"Search Name:";
+    std::getline(std::cin,searchName);
+    NodeStudent* foundStudent = studentList.findStudent(searchName);
+    if (foundStudent != nullptr) {
+        std::cout << "Student found: " << foundStudent->dataOfStudent->GetFullName() << std::endl;
+    }
+    else {
+        std::cout << "Student not found." << std::endl;
+    }
+
+    std::string editName ;
+    std::cout<< "Edit Name: ";
+    std::getline(std::cin,editName);
+    Student* newStudentData = new Student();
+    studentList.editStudent(editName, newStudentData);
+
+    studentList.displayStudent();
+
+    return 0;
+}
