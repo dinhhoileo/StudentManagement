@@ -3,12 +3,14 @@
 #include "Class.cpp"
 
 // DỮ LIỆU LỚP HỌC SINH
+
 class NodeStudent
 {
 public:
     Student *dataOfStudent;
     NodeStudent *next;
     // constructor
+    NodeStudent();
     NodeStudent(Student *dataOfStudent)
     {
         this->dataOfStudent = dataOfStudent;
@@ -22,6 +24,7 @@ public:
     Subject *dataOfSubject;
     NodeSubject *next;
     // constructor
+    NodeSubject();
     NodeSubject(Subject *dataOfSubject)
     {
         this->dataOfSubject = dataOfSubject;
@@ -36,6 +39,7 @@ public:
     Class *dataOfClass;
     NodeClass *next;
     // constructor
+    NodeClass();
     NodeClass(Class *dataOfClass)
     {
         this->dataOfClass = dataOfClass;
@@ -50,6 +54,7 @@ public:
     Faculty *dataOfFaculty;
     NodeFaculty *next;
     // constructor
+    NodeFaculty();
     NodeFaculty(Faculty *dataOfFaculty)
     {
         this->dataOfFaculty = dataOfFaculty;
@@ -63,6 +68,7 @@ public:
     Term *dataOfTerm;
     NodeTerm *next;
     // constructor
+    NodeTerm();
     NodeTerm(Term *dataOfTerm)
     {
         this->dataOfTerm = dataOfTerm;
@@ -129,6 +135,10 @@ public:
         {
             studentNode->dataOfStudent = newDataOfStudent;
         }
+    }
+    void displayStudent()
+    {
+        
     }
 };
 // danh sách lưa trữ các môn học

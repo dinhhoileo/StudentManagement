@@ -5,16 +5,23 @@
 
 int main(int argc, char const *argv[])
 {
-    ListStudent listStudent;
-    ListSubject listSubject;
-    ListClass   listClass;
-    ListFaculty listFaculty;
-    ListTerm    listTerm;
-    
-    HashTable hashTable(100);
-    
-    hashTable.addToClassToTable(new Student());
+    // khởi tạo một hash table
+    HashTable hashtable(100);
+    Student* newStudent = new Student;
+    newStudent->putInformationStudent();
+    while (true )
+    {
+        char choice;
+        std::cout<<"Do you want exit (y/Y):";
+        std::cin>>choice;
+        
+        // hashtable.addToStudentTable();
 
-   
+        // base case
+        if (choice=='y'||choice =='Y')
+        {
+            break;
+        }
+    }
     return 0;
 }
