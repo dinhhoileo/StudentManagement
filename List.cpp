@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <cstring>
 #include "Class.cpp"
@@ -122,19 +123,76 @@ public:
         {
             if (temp->dataOfStudent->GetFullName() == name)
             {
+                temp->dataOfStudent->outputInformation();
                 return temp;
             }
             temp = temp->next;
         }
         return nullptr;
     }
+    void editChosseStudent(NodeStudent *foundStudent)
+    {
+        while (true)
+        {
+            char choice;
+            std::cout << "1 - Edit Name" << std::endl;
+            std::cout << "2 - Edit ID" << std::endl;
+            std::cout << "3 - Edit Date Of Birth" << std::endl;
+            std::cout << "4 - Edit Address" << std::endl;
+            std::cout << "5 - Edit Email" << std::endl;
+            std::cout << "6 - Edit Phone Number:" << std::endl;
+            std::cout << "Do you want to exit (y/Y): ";
+            std::cin.get(choice);
+            std::cin.ignore(); // Xóa bộ đệm đệm đầu dòng
+            if (choice == '1')
+            {
+                std::string editName;
+                std::cout << "Edit Name:";
+                std::getline(std::cin, editName);
+                foundStudent->dataOfStudent->SetFullName(editName);
+            }
+            else if (choice == '2')
+            {
+                std::string editId;
+                std::cout << "Edit Id:";
+                std::getline(std::cin, editId);
+                foundStudent->dataOfStudent->SetID(editId);
+            }
+            else if (choice == '3')
+            {
+                std::string editBirth;
+                std::cout << "Edit Birth:";
+                std::getline(std::cin, editBirth);
+                foundStudent->dataOfStudent->SetDateOfBirth(editBirth);
+            }
+            else if (choice == '4')
+            {
+                std::string editAddress;
+                std::cout << "Edit Address:";
+                std::getline(std::cin, editAddress);
+                foundStudent->dataOfStudent->SetAddress(editAddress);
+            }
+            else if (choice == '5')
+            {
+                std::string editEmail;
+                std::cout << "Edit Email:";
+                std::getline(std::cin, editEmail);
+                foundStudent->dataOfStudent->SetEmail(editEmail);
+            }
+            else if (choice == 'y' || choice == 'Y')
+            {
+                break; // Thoát khỏi vòng lặp while
+            }
+        }
+    }
+
     // sửa Học sinh theo tên
     void editStudent(std::string name, Student *newDataOfStudent)
     {
         NodeStudent *studentNode = findStudent(name);
         if (studentNode != nullptr)
         {
-            studentNode->dataOfStudent = newDataOfStudent;
+            editChosseStudent(studentNode);
         }
     }
     void displayStudent()
@@ -199,6 +257,13 @@ public:
             temp = temp->next;
         }
         return nullptr;
+    }
+    void editChosse()
+    {
+        while (true)
+        {
+            // std::cout << "" char chosse;
+        }
     }
     // sửa thông tin một lớp môn học
     void editSubject(std::string nameSubject, Subject *newDataOfSubject)
@@ -435,33 +500,39 @@ public:
         }
     }
 };
-int main() {
+int main()
+{
     // Một ví dụ sử dụng các chức năng trong lớp ListStudent
     ListStudent studentList;
-    Student* student1 = new Student();
+    Student *student1 = new Student();
     student1->putInformationStudent();
     studentList.addToHead(student1);
 
-    Student* student2 = new Student();
+    Student *student2 = new Student();
     student2->putInformationStudent();
     studentList.addToTail(student2);
 
-    std::string searchName ;
-    std::cout<<"Search Name:";
-    std::getline(std::cin,searchName);
-    NodeStudent* foundStudent = studentList.findStudent(searchName);
-    if (foundStudent != nullptr) {
-        std::cout << "Student found: " << foundStudent->dataOfStudent->GetFullName() << std::endl;
+    std::string searchName;
+    std::cout << "Search Name:";
+    std::getline(std::cin, searchName);
+    NodeStudent *foundStudent = studentList.findStudent(searchName);
+    if (foundStudent != nullptr)
+    {
+        foundStudent->dataOfStudent->outputInformation();
+        std::cin.ignore();
     }
-    else {
+    else
+    {
         std::cout << "Student not found." << std::endl;
     }
 
-    std::string editName ;
-    std::cout<< "Edit Name: ";
-    std::getline(std::cin,editName);
-    Student* newStudentData = new Student();
+    Student *newStudentData = new Student();
+    std::string editName;
+    std::cout << "Edit Name: ";
+    std::getline(std::cin, editName);
     studentList.editStudent(editName, newStudentData);
+
+
 
     studentList.displayStudent();
 

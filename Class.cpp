@@ -161,6 +161,7 @@ public:
                 for (int j = 0; j < registeredSubjects->length(); j++)
                 {
                     std::cout << "Subject " << j + 1 << ": " << registeredSubjects[j] << std::endl;
+                    std::cin.ignore();
                 }
                 break;
             }
@@ -283,6 +284,7 @@ public:
                 for (int i = 0; i < registeredStudentSubject->length(); ++i)
                 {
                     std::cout << "Student " << i + 1 << ": " << registeredStudentSubject[i] << std::endl;
+                    std::cin.ignore();
                 }
                 break;
             default:
@@ -429,6 +431,7 @@ public:
                 for (int i = 0; i < subjectTaughtInClass->length(); ++i)
                 {
                     std::cout << "Subject " << i + 1 << ": " << subjectTaughtInClass[i] << std::endl;
+                    std::cin.ignore();
                 }
                 break;
             default:
@@ -539,6 +542,7 @@ public:
                 for (int i = 0; i < listClassOfFaculty->length(); ++i)
                 {
                     std::cout << "Class " << i + 1 << ": " << listClassOfFaculty[i] << std::endl;
+                    std::cin.ignore();
                 }
                 break;
             default:
@@ -672,6 +676,7 @@ public:
                 for (int i = 0; i < listClassInTerm->length(); ++i)
                 {
                     std::cout << "Class " << i + 1 << ": " << listClassInTerm[i] << std::endl;
+                    std::cin.ignore();
                 }
                 break;
             default:
